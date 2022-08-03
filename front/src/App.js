@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // Importe les composants
 import Home from './pages/Home';
 import Newpost from './pages/Newpost';
-import Signin from './pages/Signin';
+import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Error from './pages/Error';
 
@@ -20,7 +20,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new-post" element={<Newpost />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<Error />} />
         {/* path=* fonctionne si aucune route déclarée ne correspond, redirige vers Home, on peut mettre 404 */}
