@@ -1,11 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
+import Newpost from '../components/Newpost';
 
 const Home = () => {
     return (
         <div>
             <Header />
-            <h1>Newpost</h1>
+            <Newpost />
         </div>
     );
 };

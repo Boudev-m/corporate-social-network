@@ -5,8 +5,12 @@ const Home = () => {
     return (
         <div>
             <Header />
-            <h1>Erreur : la page n'existe pas.</h1>
-            <p>Retourner à <a href='./'>l'accueil</a>.</p>
+            <main>
+                <div className='main_content center'>
+                    <h1>Erreur : la page n'existe pas.</h1>
+                    <p>Retourner à <a href='./'>l'accueil</a>.</p>
+                </div>
+            </main>
         </div>
     );
 };
