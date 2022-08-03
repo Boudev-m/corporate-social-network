@@ -13,7 +13,10 @@ const Header = () => {
                     <NavLink to="/" >
                         <li>Accueil</li>
                     </NavLink>
-                    <NavLink to="/signin" >
+                    <NavLink to="/new-post" >
+                        <li>Nouveau message</li>
+                    </NavLink>
+                    <NavLink to="/login" >
                         <li>Se connecter</li>
                     </NavLink>
                     <NavLink to="/signup" >
