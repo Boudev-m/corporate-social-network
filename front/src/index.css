@@ -2,7 +2,7 @@
 
 :root {
   font-family: Lato, Verdana, Tahoma, sans-serif;
-  background: linear-gradient(25deg, #FFF, #EDD);
+  background: #DDD;
   height: 100%;
 }
 
@@ -58,36 +58,41 @@ main {
   padding: 30px 20%;
 }
 
-.post {
+.main_content {
   padding: 10px;
   border: 2px solid grey;
-  background-color: #FFF
+  background-color: #FFF;
+  margin-bottom: 15px;
 }
 
 /******************  HOME **********************/
 
 
 .name_date_post {
-  border-bottom: 2px solid grey;
-  padding: 5px 0px;
+  border-bottom: 2px solid #CCC;
+  padding-bottom: 5px;
   display: flex;
   justify-content: space-between;
 }
 
 .message_post {
   /* border: 2px solid yellow; */
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .like_post {
-  border-top: 2px solid grey;
+  padding-top: 5px;
+  border-top: 2px solid #CCC;
   display: flex;
   justify-content: flex-end;
 }
 
 /********************************************************/
+.center {
+  text-align: center;
+}
 
 /* 
 notes sur les selectors :
