@@ -14,26 +14,6 @@ app.use((req, res, next) => {
 });
 
 
-app.get('/api/posts', (req, res) => {
-    const posts = [
-        {
-            firstName: 'Must',
-            lastName: 'Boui',
-            message: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur ut suscipit excepturi nobis nulla provident ipsa consectetur esse, assumenda eligendi.',
-            like: 5,
-            date: 282022 // utiliser Date.now() puis formater
-        },
-        {
-            firstName: 'Jean',
-            lastName: 'Dupont',
-            message: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
-            like: 1,
-            date: 382022
-        }
-    ]
-    res.status(200).json(posts);
-});
-
 // // Helmet
 // const helmet = require('helmet');
 // app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));       
@@ -43,31 +23,30 @@ app.get('/api/posts', (req, res) => {
 
 
 // // Mongoose
-// const mongoose = require('mongoose');
-// mongoose.connect(process.env.MONGODB_URL,
-//     {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true
-//     })
-//     .then(() => console.log('Connexion à MongoDB réussie !'))
-//     .catch((error) => console.log(error));
-// //
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://must:VNfrXbqhyl96IxhK@cluster0.9ltocwf.mongodb.net/?retryWrites=true&w=majority',
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch((error) => console.log(error));
+//
 
-// /*************************************************** */
+/* *************************************************** */
 
 // // Accède au chemin du serveur
 // const path = require('path');
 // // Gère la ressource image de manière statique à chaque fois qu'elle reçoit une requête vers la route /images
 // app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// // Importe les routes
-// const userRoutes = require('./routes/user');
-// const sauceRoutes = require('./routes/sauce');
-// const { strictEqual } = require('assert');
+// Importe les routes
+const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
 
 // // Utilisation des routes
-// app.use('/api/auth', userRoutes);
-// app.use('/api/sauces', sauceRoutes);
+app.use('/api/auth', userRoutes);
+app.use('/api/posts', postRoutes);
 
 
 /*************************************************** */
