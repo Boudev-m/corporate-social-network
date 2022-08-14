@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    admin: { type: Boolean, required: true }
+    isAdmin: { type: Boolean, required: true }
     //_id: il sera géneré par le back et attribué au user à l'inscription (signup), deviendra ensuite l'userId à l'authentification (login)
 });
 
