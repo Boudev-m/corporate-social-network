@@ -27,7 +27,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://must:VNfrXbqhyl96IxhK@cluster0.9ltocwf.mongodb.net/?retryWrites=true&w=majority',
     {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
     })
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch((error) => console.log(error));
