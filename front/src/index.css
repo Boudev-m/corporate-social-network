@@ -15,11 +15,21 @@ li {
   list-style-type: none;
 }
 
+.center {
+  text-align: center;
+}
+
+.input-error {
+  color: #F00;
+  font-style: italic;
+  font-size: 0.8em;
+}
+
 /******************  HEADER **********************/
 header {
   background-color: #FFF;
   padding: 10px;
-  border: 1px solid;
+  border: 1px solid #888;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,26 +70,30 @@ main {
 
 .main_content {
   padding: 10px;
-  border: 2px solid grey;
+  border: 1px solid #888;
   background-color: #FFF;
   margin-bottom: 15px;
 }
 
 /******************  HOME **********************/
 
-
 .name_date_post {
   border-bottom: 2px solid #CCC;
   padding-bottom: 5px;
   display: flex;
   justify-content: space-between;
+  font-style: italic;
 }
 
 .message_post {
-  /* border: 2px solid yellow; */
   padding: 20px 0;
   display: flex;
   flex-direction: column;
+}
+
+
+.image_post img {
+  max-width: 200px;
 }
 
 .like_post {
@@ -87,11 +101,47 @@ main {
   border-top: 2px solid #CCC;
   display: flex;
   justify-content: flex-end;
+  font-style: italic;
 }
 
-/********************************************************/
-.center {
-  text-align: center;
+/******************  NEWPOST **********************/
+
+.container_textarea {
+  overflow: hidden;
+}
+
+/************** Media Queries ***************/
+
+@media screen and (max-width: 850px) {
+
+  header {
+    padding: 0px;
+    flex-direction: column;
+  }
+
+  /*container logo*/
+  .container_logo {
+    height: 60px;
+  }
+
+  main {
+    padding: 30px 120px;
+  }
+
+}
+
+@media screen and (max-width: 590px) {
+
+  main {
+    padding: 0;
+  }
+
+  .main_content {
+
+    padding: 10px;
+    margin-bottom: 0px;
+  }
+
 }
 
 /* 

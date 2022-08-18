@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+// import { accountService } from '_services';
+
 
 
 const Login = () => {
@@ -37,7 +39,6 @@ const Login = () => {
 
         // Si le formulaire est conforme
         if (formIsValid) {
-            console.log('Le formulaire est conforme.');
             SendForm(e);
         }
     };
@@ -56,17 +57,37 @@ const Login = () => {
         }
         // Requête POST : authentification de l'user
         axios.post("http://localhost:3000/api/auth/login", user, { headers })
-            .then((res) => console.log(res.data.token))
-            .then((res) => headers.set('Authorization', 'Bearer ' + res.data.token))
-            // token
-            // .then(document.location.href = "./")     // retour page d'accueil après envoie d'un post
+            .then((res) => {
+                return res.data;
+            })
+            .then((data) => {
+                // stocke le token dans le header Authorization, sera disponible dans les prochaines requêtes de l'user
+                // remarque : quand on actualise la page, le token disparait du header
+                axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+            })
+            .then(() => {
+                // window.location = '/'; // retour page d'accueil après login
+            })
             .catch((error) => {
-                if (error.response.status === 401) {
-                    document.querySelector('.input-error').textContent = 'Email ou mot de passe invalide';
-                }
+                console.log(error);
             });
     }
 
+    // // Vérifie que l'utilisateur est authentifié
+    // function jwtInterceptor() {
+    //     axios.interceptors.request.use(request => {
+    //         // add auth header with jwt if account is logged in and request is to the api url
+    //         const account = accountService.accountValue;
+    //         const isLoggedIn = account?.token;
+    //         const isApiUrl = request.url.startsWith(process.env.REACT_APP_API_URL);
+
+    //         if (isLoggedIn && isApiUrl) {
+    //             request.headers.common.Authorization = `Bearer ${account.token}`;
+    //         }
+
+    //         return request;
+    //     });
+    // }
     function RemoveTextError(e) {
         document.querySelector('.input-error').textContent = '';
     }
@@ -87,7 +108,7 @@ const Login = () => {
                         <input type="password" name="password" id="password" onInput={RemoveTextError} required />
                     </div>
                     <br />
-                    <p class="input-error"></p>
+                    <p className="input-error"></p>
                     <br />
                     <button onClick={CheckForm}>Se connecter</button>
                 </form>

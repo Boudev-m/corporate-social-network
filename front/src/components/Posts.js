@@ -1,31 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Posts = () => {
-    const posts = [
-        {
-            firstName: 'Must',
-            lastName: 'Boui',
-            message: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur ut suscipit excepturi nobis nulla provident ipsa consectetur esse, assumenda eligendi.',
-            like: 5,
-            date: 282022
-        },
-        {
-            firstName: 'Jean',
-            lastName: 'Dupont',
-            message: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
-            like: 1,
-            date: 382022
-        },
-    ];
+
+    // Requête GET  : affiche la collection des posts
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000/api/posts", axios.defaults.headers.common.Authorization)
+            .then((res) => setData(res.data))
+            .catch((error) => console.log(error));
+    }, []) // le [] est pour une callback
+
+    // Requête POST : ajouter/enlever un like
+
+    // si user non authentifié, afficher 'connectez vous pour voir les messages'
     return (
         <main>
-            {posts
-                .sort((a, b) => b.date - a.date)
-                .map((post, index) => (
+            {data
+                .sort((a, b) => b.date - a.date) // trie par date
+                .map((post, index) => (          // parcourt chaque elt du tableau
                     <div className='main_content' key={index}>
                         <div className='name_date_post'>
                             <p>{post.firstName + ' ' + post.lastName}</p>
-                            <p>{post.date}</p>
+                            <p>Date : {post.date}</p>
                         </div>
                         <div className='message_post'>
                             <p className='text_post'>{post.message}</p>
@@ -39,7 +37,6 @@ const Posts = () => {
                         </div>
                     </div>
                 ))
-
             }
         </main>
     );
