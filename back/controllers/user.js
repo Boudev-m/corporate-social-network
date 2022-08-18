@@ -63,7 +63,7 @@ exports.login = (req, res, next) => {
                         { expiresIn: '5h' });
                     console.log({ userId: user._id, token });
                     // je met le token dans le cookie avec l'option http only
-                    // res.cookie('jwt', token, { httpOnly: true });    // Ne fonctionne pas car disparait
+                    res.cookie('jwt', token, { httpOnly: true });    // Ne fonctionne pas car disparait
                     // je met le token dans la response aussi
                     res.status(200).json({
                         userId: user._id, token
