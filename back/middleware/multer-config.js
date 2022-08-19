@@ -14,11 +14,11 @@ const storage = multer.diskStorage({
     callback(null, 'images');
   },
   filename: (req, file, callback) => {
-    const name = file.originalname.split(' ').join('_');
+    const name = file.originalname.split(' ').join('_').split('.')[0];
     const extension = MIME_TYPES[file.mimetype];
     callback(null, name + Date.now() + '.' + extension);
   }
 });
 
 // Exporte multer configuré (avec la constante storage), gère seulement les fichiers 'image'
-module.exports = multer({ storage: storage }).single('image');
+module.exports = multer({ storage: storage }).single('imageFile');    // 'imageFile' doit correspondre au nom utilisé dans le formData côté front
