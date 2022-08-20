@@ -6,51 +6,11 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 // Affiche tous les posts de la BDD
-// Authentification requise
-// On vérifie que l'user est connecté via son token dans la requête
 exports.getAllPost = (req, res, next) => {
     console.log('-------------- GET ALL POSTS --------------');
-    console.log('Token dans la request ?');
-    if (req.headers.authorization) {
-        console.log('Oui');
-        // console.log('Token : ' + req.headers.cookie.split('jwt=')[1]);
-        console.log('Token : ' + req.headers.authorization.split('Bearer ')[1]);
-        const decodedToken = jwt.verify(req.headers.authorization.split('Bearer ')[1], 'process.env.PRIVATE_KEY');
-        console.log('userId du Token : ' + decodedToken.userId);
-        User.findOne({ _id: decodedToken.userId })
-            .then(user => {
-                console.log('Token valide ?');
-                if (!user) {
-                    console.log('Non. Accès refusé');
-                    return res.status(401).json({ message: 'Utilisateur introuvable, token invalide' });
-                }
-                console.log('Oui. Accès autorisé');
-                const posts = [
-                    {
-                        firstName: 'Must',
-                        lastName: 'Boui',
-                        message: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur ut suscipit excepturi nobis nulla provident ipsa consectetur esse, assumenda eligendi.',
-                        like: 5,
-                        date: 282022 // utiliser Date.now() puis formater
-                    },
-                    {
-                        firstName: 'Jean',
-                        lastName: 'Dupont',
-                        message: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
-                        like: 1,
-                        date: 382022
-                    }
-                ]
-                res.status(200).json(posts);
-            })
-            .catch(error => res.status(500).json({ error }));
-    } else {
-        console.log('Non. Accès refusé');
-        res.status(401).json({ message: 'Utilisateur non connecté' });
-    }
-
-
-
+    Post.find()
+        .then(posts => res.status(200).json(posts))
+        .catch(error => res.status(500).json({ error }));
 };
 
 
@@ -60,6 +20,7 @@ exports.createPost = (req, res, next) => {
     console.log('Contenu du post');
     console.log(req.body);
     console.log(req.file);
+    console.log(req.auth);
     // if (!req.body.text) {
     //     console.log('Pas de texte');
     // } else { console.log('Texte présent'); }
@@ -70,8 +31,8 @@ exports.createPost = (req, res, next) => {
     delete postObject._id;
     delete postObject.userId;
     const post = new Post({
-        ...postObject,                        // contient le text et l'image
-        userId: 'req.auth.userId',            // userId du token
+        ...postObject,                          // contient le text et l'image
+        userId: req.auth.userId,                // userId extrait du token
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         date: Date.now(),
         likes: 0,
