@@ -10,7 +10,6 @@ const userCtrl = require('../controllers/user');
 // Routes
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
-router.get('/logout', userCtrl.logout);
 
 // Exporte les routes pour l'app
 module.exports = router;
