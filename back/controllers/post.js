@@ -30,11 +30,16 @@ exports.createPost = (req, res, next) => {
     const postObject = req.body;
     delete postObject._id;
     delete postObject.userId;
+    let fullDate = new Date;
+    let date = fullDate.toLocaleDateString();
+    let time = fullDate.toLocaleTimeString().split(':');
+    time.pop();
+    time = time.join(':')
     const post = new Post({
         ...postObject,                          // contient le text et l'image
         userId: req.auth.userId,                // userId extrait du token
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-        date: Date.now(),
+        date: [date, time],
         likes: 0,
         usersLiked: [],
         //_id: géneré par mongoose
