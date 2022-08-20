@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 // Modèle post
 const postSchema = mongoose.Schema({
   userId: { type: String, required: true },   // _id de l'user du post
-  date: { type: Date, required: true },     // utiliser la fonction Date.now() puis formater
+  date: { type: [String], required: true },
   text: { type: String },
   imageUrl: { type: String },
   likes: { type: Number, required: true },
