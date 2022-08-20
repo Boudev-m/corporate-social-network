@@ -91,9 +91,12 @@ main {
   flex-direction: column;
 }
 
+.text_post {
+  margin-bottom: 10px;
+}
 
 .image_post img {
-  max-width: 200px;
+  max-width: 400px;
 }
 
 .like_post {
