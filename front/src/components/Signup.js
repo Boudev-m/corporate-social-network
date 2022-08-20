@@ -43,7 +43,6 @@ const Signup = () => {
 
         // Si le formulaire est conforme
         if (formIsValid) {
-            console.log('Le formulaire est conforme.');
             SendForm(e);
         }
 
@@ -65,11 +64,22 @@ const Signup = () => {
         }
         // Requête POST : inscription de l'user
         axios.post("http://localhost:3000/api/auth/signup", user, { headers })
-            .then((res) => console.log(res))
-            // puis authentification/login
-            // puis intégrer token dans les headers de requêtes
-            // puis renvoie à la page d'accueil
-            .catch((error) => console.log(error));
+            .then(() => axios.post("http://localhost:3000/api/auth/login", { email: user.email, password: user.password }, { headers })
+                .then((res) => {
+                    // stocke le token dans le localStorage, il faut le mettre dans le header Authorization pour chaque requête de l'user
+                    localStorage.jwt = res.data.jwt;
+                })
+                .then(() => {
+                    window.location = '/'; // retour page d'accueil après login
+                })
+                .catch((error) => console.log(error)))
+            .catch((error) => {
+                if (error.response.data.error.errors.email.kind === 'unique') {
+                    document.querySelectorAll('.form-group input')[2].nextSibling.textContent = 'Cette adresse mail est déjà prise.'
+                } else {
+                    console.log(error);
+                }
+            });
     }
 
     function RemoveTextError(e) {
