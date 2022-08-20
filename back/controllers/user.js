@@ -62,31 +62,11 @@ exports.login = (req, res, next) => {
                         'process.env.PRIVATE_KEY',
                         { expiresIn: '5h' });
                     console.log({ userId: user._id, token });
-                    // je met le token dans le cookie avec l'option http only
-                    res.cookie('jwt', token, { httpOnly: true });    // Ne fonctionne pas car disparait
-                    // je met le token dans la response aussi
                     res.status(200).json({
-                        userId: user._id, token
+                        userId: user._id, jwt: token
                     });
                 })
                 .catch(error => res.status(500).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
 };
-
-// Déconnexion de l'utilisateur
-exports.logout = (req, res, next) => {
-    console.log('------ GET LOGOUT -------');
-    if (req.headers.cookie) {
-        console.log('Cookie de la request :');
-        console.log(req.headers.cookie);
-        const decodedToken = jwt.verify(req.headers.cookie.split('jwt=')[1], 'process.env.PRIVATE_KEY')
-        console.log(decodedToken);
-        res.cookie('jwt', '', { maxAge: 1 });
-        res.redirect('./');
-        console.log('Vous vous êtes déconnecté.');
-    } else {
-        console.log('Pas de cookie dans la requête');
-        res.json({ message: 'Pas de cookie dans la requête' });
-    }
-}
