@@ -58,36 +58,21 @@ const Login = () => {
         // Requête POST : authentification de l'user
         axios.post("http://localhost:3000/api/auth/login", user, { headers })
             .then((res) => {
-                return res.data;
-            })
-            .then((data) => {
-                // stocke le token dans le header Authorization, sera disponible dans les prochaines requêtes de l'user
-                // remarque : quand on actualise la page, le token disparait du header
-                axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+                // stocke le token dans le localStorage, il faut le mettre dans le header Authorization pour chaque requête de l'user
+                localStorage.jwt = res.data.jwt;
             })
             .then(() => {
-                // window.location = '/'; // retour page d'accueil après login
+                window.location = '/'; // retour page d'accueil après login
             })
             .catch((error) => {
-                console.log(error);
+                if (error.response.status !== 500) {
+                    document.querySelector('.input-error').textContent = 'Email ou mot de passe invalide';
+                } else {
+                    console.log(error);
+                }
             });
     }
 
-    // // Vérifie que l'utilisateur est authentifié
-    // function jwtInterceptor() {
-    //     axios.interceptors.request.use(request => {
-    //         // add auth header with jwt if account is logged in and request is to the api url
-    //         const account = accountService.accountValue;
-    //         const isLoggedIn = account?.token;
-    //         const isApiUrl = request.url.startsWith(process.env.REACT_APP_API_URL);
-
-    //         if (isLoggedIn && isApiUrl) {
-    //             request.headers.common.Authorization = `Bearer ${account.token}`;
-    //         }
-
-    //         return request;
-    //     });
-    // }
     function RemoveTextError(e) {
         document.querySelector('.input-error').textContent = '';
     }
