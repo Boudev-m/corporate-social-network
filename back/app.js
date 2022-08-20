@@ -35,10 +35,10 @@ mongoose.connect('mongodb+srv://must:VNfrXbqhyl96IxhK@cluster0.9ltocwf.mongodb.n
 
 /* *************************************************** */
 
-// // Accède au chemin du serveur
-// const path = require('path');
-// // Gère la ressource image de manière statique à chaque fois qu'elle reçoit une requête vers la route /images
-// app.use('/images', express.static(path.join(__dirname, 'images')));
+// Accède au chemin du serveur (pour les fichiers images stockées)
+const path = require('path');
+// Gère la ressource image de manière statique à chaque fois qu'elle reçoit une requête vers la route /images
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Importe les routes
 const userRoutes = require('./routes/user');
