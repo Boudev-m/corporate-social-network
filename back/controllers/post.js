@@ -13,18 +13,6 @@ exports.getAllPost = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
-// // Affiche le nom et prénom d'un utilisateur
-// exports.getUserOfPost = (req, res, next) => {
-//     console.log('---------------- GET USER OF POST-------------------');
-//     console.log(req.params);
-//     User.findOne({ _id: req.params.userId })
-//         .then(user => res.status(200).json({ firstName: user.firstName, lastName: user.lastName }))
-//         .catch(error => res.status(500).json({ error }));
-//     // User.findOne({ _id: req.params.id })
-//     //     .then(user => res.status(200).json({ firstName, lastName }))
-//     //     .catch(error => res.status(500).json({ error }));
-// };
-
 // Enregistre un post dans la BDD
 exports.createPost = (req, res, next) => {
     console.log('-------------- CREATE A POST --------------');
