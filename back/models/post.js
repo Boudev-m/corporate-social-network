@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const postSchema = mongoose.Schema({
   userId: { type: String, required: true },   // _id de l'user du post
   author: { type: [String], required: true },
+  isAuthor: { type: Boolean, required: true },
   date: { type: [String], required: true },
   text: { type: String },
   imageUrl: { type: String },
