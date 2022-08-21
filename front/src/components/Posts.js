@@ -5,17 +5,18 @@ const Posts = () => {
 
     // Requête GET  : affiche la collection des posts
     const [data, setData] = useState([]);
+    const [dataUser, setDataUser] = useState([]);
+
     useEffect(() => {
         const headers = {
             'Authorization': `Bearer ${localStorage.jwt}`
         }
         axios.get("http://localhost:3000/api/posts", { headers })
             .then((res) => {
-                setData(res.data);
+                setData(res.data.reverse());        // reverse pour trier par date de création
             })
-            .catch(() => {
-                window.location = '/login';
-            })
+            .catch(() => { window.location = '/login' });
+
     }, []) // le [] est pour une callback
 
     // Requête POST : ajouter/enlever un like
@@ -26,18 +27,20 @@ const Posts = () => {
     return (
         <main>
             {data
-                .sort((a, b) => b.date - a.date) // trie par date
-                .map((post) => (          // parcourt chaque elt du tableau
+                .map((post, i) => (          // parcourt chaque elt du tableau
                     <div className='main_content' key={post._id}>
                         <div className='name_date_post'>
-                            <p>{post.userId + ' ' + post.userId}</p>
+                            {/* {dataUser.map((user) => (console.log('ok')))} */}
+                            <p>{post.author[1] + ' ' + post.author[0]}</p>
                             <p>Posté le {post.date[0]} à {post.date[1]}</p>
                         </div>
                         <div className='message_post'>
                             <p className='text_post'>{post.text}</p>
-                            <div className='image_post'>
-                                <img src={post.imageUrl} alt="[Illustration du message]" />
-                            </div>
+                            {post.imageUrl ?
+                                <div className='image_post'>
+                                    <img src={post.imageUrl} alt={post.imageUrl ? "[Illustration du message]" : ""} />
+                                </div> : ""
+                            }
                         </div>
                         <div className='like_post'>
                             <div>{post.likes} like{post.likes > 1 ? 's' : ''} </div>
