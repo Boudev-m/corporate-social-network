@@ -103,8 +103,12 @@ main {
   padding-top: 5px;
   border-top: 2px solid #CCC;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   font-style: italic;
+}
+
+.ownper_post {
+  background-color: #fef3e7;
 }
 
 /******************  NEWPOST **********************/
