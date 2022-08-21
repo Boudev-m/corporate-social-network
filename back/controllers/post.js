@@ -13,6 +13,17 @@ exports.getAllPost = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
+// // Affiche le nom et prénom d'un utilisateur
+// exports.getUserOfPost = (req, res, next) => {
+//     console.log('---------------- GET USER OF POST-------------------');
+//     console.log(req.params);
+//     User.findOne({ _id: req.params.userId })
+//         .then(user => res.status(200).json({ firstName: user.firstName, lastName: user.lastName }))
+//         .catch(error => res.status(500).json({ error }));
+//     // User.findOne({ _id: req.params.id })
+//     //     .then(user => res.status(200).json({ firstName, lastName }))
+//     //     .catch(error => res.status(500).json({ error }));
+// };
 
 // Enregistre un post dans la BDD
 exports.createPost = (req, res, next) => {
@@ -21,15 +32,10 @@ exports.createPost = (req, res, next) => {
     console.log(req.body);
     console.log(req.file);
     console.log(req.auth);
-    // if (!req.body.text) {
-    //     console.log('Pas de texte');
-    // } else { console.log('Texte présent'); }
-    // if (!req.body.imageUrl) {
-    //     console.log('Pas d\'image');
-    // } else { console.log('Image présente'); }
     const postObject = req.body;
     delete postObject._id;
     delete postObject.userId;
+    delete postObject.author;
     let fullDate = new Date;
     let date = fullDate.toLocaleDateString();
     let time = fullDate.toLocaleTimeString().split(':');
@@ -38,19 +44,29 @@ exports.createPost = (req, res, next) => {
     const post = new Post({
         ...postObject,                          // contient le text et l'image
         userId: req.auth.userId,                // userId extrait du token
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        author: [],
+        imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : '',
         date: [date, time],
         likes: 0,
         usersLiked: [],
         //_id: géneré par mongoose
     });
-    post.save()
-        .then((post) => {
-            console.log('post crée');
-            console.log(post);
-            res.status(201).json({ message: 'Post crée', post })
+    User.findOne({ _id: post.userId })
+        .then((user) => {
+            post.author.push(user.lastName)
+            post.author.push(user.firstName);
+            return post;
         })
-        .catch(error => res.status(500).json({ error }));
+        .then((post) => {
+            post.save()
+                .then((post) => {
+                    console.log('post crée');
+                    console.log(post);
+                    res.status(201).json({ message: 'Post crée', post })
+                })
+                .catch(error => res.status(500).json({ error }));
+        }).catch(error => res.status(500).json({ error }));
+
 };
 
 
