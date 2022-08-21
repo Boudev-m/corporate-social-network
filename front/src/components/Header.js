@@ -19,9 +19,7 @@ const Header = () => {
     return (
         <header>
             <div className='container_logo'>
-                <NavLink to="/">
-                    <img className='logo' src={logo} alt="logo groupomania" />
-                </NavLink>
+                <img className='logo' src={logo} alt="logo groupomania" />
             </div>
             <div className='navigation'>
                 {isLogged ?
