@@ -10,7 +10,7 @@ const Newpost = () => {
     const [file, setFile] = useState();
 
     function uploadFile(e) {
-        setFile(e.target.files[0]);
+        return setFile(e.target.files[0]);
     };
 
     // Envoie le formulaire
@@ -21,20 +21,22 @@ const Newpost = () => {
         const post = {              // contenu du post
             text: document.getElementById('message').value,
         }
+        // Crée la constante qui sera envoyé dans la requête
         const formData = new FormData();
-        formData.append(
-            "myFile",
-            file,
-            file.name
-        )
-        const headers = {           // ajout de headers
+        // Ajoute le message et l'image
+        formData.append('text', post.text);
+        if (file) {
+            formData.append('imageFile', file, file.fieldname);
+        }
+        // Headers de requête
+        const headers = {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.jwt}`
         }
         // Requête POST : envoyer un post avec texte et/ou image
         axios.post("http://localhost:3000/api/posts", formData, { headers })  // mettre l'URL dans une var env
-            .then((res) => console.log(res))
-            // .then(document.location.href = "./")     // retour page d'accueil après envoie d'un post
+            .then(() => window.location = '/') // retour page d'accueil après login
             .catch((error) => console.log(error));
     }
     return (
