@@ -12,13 +12,12 @@ module.exports = (req, res, next) => {
         req.auth = {
             userId: userId
         };
-        console.log('Token dans la requête :');
-        console.log(req.headers.authorization.split('Bearer ')[1]);
+        console.log('Token valide.');
         console.log('userId du token:');
         console.log(req.auth.userId);
         next();
     } catch (error) {
         console.log('Token non valide.');
-        res.status(401).json({ error });
+        res.status(401).json(error);
     }
 };
