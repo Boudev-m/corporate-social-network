@@ -7,6 +7,9 @@ const bcrypt = require('bcrypt');
 // Token
 const jwt = require('jsonwebtoken');
 
+// Importe dotenv
+require('dotenv').config({ path: '../.env' });
+
 // Inscription de l'utilisateur
 exports.signup = (req, res, next) => {
     console.log('------ POST SIGNUP -------');
@@ -59,7 +62,7 @@ exports.login = (req, res, next) => {
                     console.log('Oui. Vous êtes maintenant connecté.');
                     const token = jwt.sign(
                         { userId: user._id },
-                        'process.env.PRIVATE_KEY',
+                        process.env.PRIVATE_KEY,
                         { expiresIn: '5h' });
                     console.log({ userId: user._id, token });
                     res.status(200).json({
