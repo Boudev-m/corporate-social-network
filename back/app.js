@@ -13,7 +13,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
 // // Helmet
 // const helmet = require('helmet');
 // app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));       
@@ -21,10 +20,12 @@ app.use((req, res, next) => {
 // // (pourtant c'est la même origin = http://localhost:3000 ?)
 // // En mettant 'same-site' ou 'cross-origin', les images s'affichent.
 
+// Importe dotenv
+require('dotenv').config({ path: './.env' });
 
 // // Mongoose
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://must:VNfrXbqhyl96IxhK@cluster0.9ltocwf.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect(process.env.MONGODB_URL,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
