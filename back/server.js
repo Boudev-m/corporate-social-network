@@ -1,8 +1,11 @@
 // Pour utiliser le serveur http
 const http = require('http');
 
-// J'importe l'app Express
+// Importe l'app Express
 const app = require('./app');
+
+// Importe dotenv
+require('dotenv').config({ path: './.env' });
 
 // Configure le port, qu'il soit en nombre ou string
 const normalizePort = val => {
