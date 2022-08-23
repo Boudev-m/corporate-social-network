@@ -11,6 +11,7 @@ const postSchema = mongoose.Schema({
   imageUrl: { type: String },
   likes: { type: Number, required: true },
   usersLiked: { type: [String], required: true },    // array de strings, avec la liste des userId des users qui ont likes
+  hasLiked: { type: Boolean, required: true }
   //_id: il sera géneré par le back et attribué au post lors de sa création, unique
 });
 
