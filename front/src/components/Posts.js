@@ -74,7 +74,7 @@ const Posts = () => {
                         <div >
                             {post.isAuthor || isAdmin ?
                                 <div>
-                                    <button onClick={deletePost}>Supprimer</button>
+                                    <button onClick={(e) => { if (window.confirm('Voulez-vous supprimer ce message ?')) deletePost(e) }}>Supprimer</button>
                                     <button onClick={updatePost}>Editer</button>
                                 </div> : ""
                             }
