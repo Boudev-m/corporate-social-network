@@ -2,9 +2,6 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 
-// Token
-const jwt = require('jsonwebtoken');
-
 // Affiche tous les posts de la BDD
 exports.getAllPost = (req, res, next) => {
     console.log('-------------- GET ALL POSTS --------------');
@@ -14,8 +11,15 @@ exports.getAllPost = (req, res, next) => {
                 if (req.auth.userId === posts[i].userId) {
                     posts[i].isAuthor = true;
                 }
+                if (posts[i].usersLiked.includes(req.auth.userId)) {
+                    posts[i].hasLiked = true;
+                }
             }
-            res.status(200).json(posts)
+            User.findOne({ _id: req.auth.userId })
+                .then(user => {
+                    res.status(200).json({ posts, isAdmin: user.isAdmin })
+                })
+                .catch(error => res.status(500).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
 };
@@ -45,6 +49,7 @@ exports.createPost = (req, res, next) => {
         date: [date, time],
         likes: 0,
         usersLiked: [],
+        hasLiked: false
         //_id: géneré par mongoose
     });
     User.findOne({ _id: post.userId })
@@ -71,24 +76,26 @@ exports.updatePost = (req, res, next) => {
     console.log('-------------- UPDATE A POST --------------');
     console.log('id du post dans les params url : ' + req.params.id);
     console.log('Contenu du post :');
-    console.log({ text: req.body.text, imageUrl: req.body.imageUrl });
-    res.status(201).json('post modifié');
-    //     const postObject = req.file ? {
-    //         ...JSON.parse(req.body.post),
-    //         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    //     } : { ...req.body };
-    //     delete postObject._userId;
-    //     Post.findOne({ _id: req.params.id })
-    //         .then((post) => {
-    //             if (post.userId === req.auth.userId) {
-    //                 Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-    //                     .then(() => res.status(200).json({ message: 'Post modifiée' }))
-    //                     .catch(error => res.status(500).json({ error }));
-    //             } else {
-    //                 return res.status(403).json({ message: 'Non autorisé' });
-    //             }
-    //         })
-    //         .catch(error => res.status(500).json({ error }));
+    console.log(req.body.text, req.file);
+    const postObject = {
+        text: req.body.text,
+        imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : ''
+    }
+    Post.findOne({ _id: req.params.id })
+        .then((post) => {
+            User.findOne({ _id: req.auth.userId })
+                .then(user => {
+                    if (post.userId === req.auth.userId || user.isAdmin) {
+                        Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+                            .then(() => res.status(200).json({ message: 'Post modifiée' }))
+                            .catch(error => res.status(500).json({ error }));
+                    } else {
+                        return res.status(403).json({ message: 'Non autorisé' });
+                    }
+                })
+                .catch(error => res.status(500).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
 };
 
 
@@ -100,6 +107,7 @@ exports.likePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
         .then((post) => {
             console.log(post);
+            let updateLike = -1;
             const likeObject = {
                 likes: post.likes,
                 usersLiked: post.usersLiked,
@@ -110,9 +118,10 @@ exports.likePost = (req, res, next) => {
             } else {
                 likeObject.likes += 1;
                 likeObject.usersLiked.push(req.auth.userId);
+                updateLike = 1;
             }
             Post.updateOne({ _id: req.params.id }, { ...likeObject, _id: req.params.id })
-                .then(() => res.status(201).json({ message: 'Like modifié' }))
+                .then(() => res.status(201).json(updateLike))
                 .catch((error) => res.status(500).json({ error }));
         })
         .catch((error) => res.status(500).json({ error }))
@@ -122,22 +131,27 @@ exports.likePost = (req, res, next) => {
 // file systeme, pour avoir accès au système de fichiers
 const fs = require('fs');
 
-// Supprime une post de la BDD
+// Supprime un post de la BDD
 exports.deletePost = (req, res, next) => {
     console.log('-------------- DELETE A POST --------------');
     console.log('id du post dans les params url : ' + req.params.id);
     Post.findOne({ _id: req.params.id })
         .then((post) => {
-            if (post.userId === req.auth.userId) {
-                const filename = post.imageUrl.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-                    Post.deleteOne({ _id: req.params.id })
-                        .then(() => res.status(200).json({ message: 'Post supprimée' }))
-                        .catch(error => res.status(500).json({ error }));
-                });
-            } else {
-                return res.status(403).json({ message: 'Accès interdit' });
-            }
+            User.findOne({ _id: req.auth.userId })
+                .then(user => {
+                    console.log(user);
+                    if (post.userId === req.auth.userId || user.isAdmin) {
+                        const filename = post.imageUrl.split('/images/')[1];
+                        fs.unlink(`images/${filename}`, () => {
+                            Post.deleteOne({ _id: req.params.id })
+                                .then(() => res.status(200).json({ message: 'Post supprimée' }))
+                                .catch(error => res.status(500).json({ error }));
+                        });
+                    } else {
+                        return res.status(403).json({ message: 'Accès interdit' });
+                    }
+                })
+                .catch(error => res.status(500).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
 }
