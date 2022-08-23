@@ -13,6 +13,11 @@ const Newpost = () => {
         return setFile(e.target.files[0]);
     };
 
+    function goHome(e) {
+        e.preventDefault();
+        window.location = './'
+    }
+
     // Envoie le formulaire
     function SendForm(e) {
         // si champ texte et image vide, renvoyer une erreur
@@ -38,7 +43,7 @@ const Newpost = () => {
             'Authorization': `Bearer ${localStorage.jwt}`
         }
         // Requête POST : envoyer un post avec texte et/ou image
-        axios.post("http://localhost:3000/api/posts", formData, { headers })  // mettre l'URL dans une var env
+        axios.post(`${process.env.REACT_APP_API_URL}/api/posts`, formData, { headers })  // mettre l'URL dans une var env
             .then(() => window.location = '/') // retour page d'accueil après login
             .catch((error) => console.log(error));
     }
@@ -61,6 +66,7 @@ const Newpost = () => {
                     <div>
                         {/* <input type="submit" value="Envoyer" /> */}
                         {/* Event click */}
+                        <button onClick={goHome}>Retour</button>
                         <button onClick={SendForm}>Envoyer</button>
                     </div>
                 </form>

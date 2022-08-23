@@ -63,8 +63,8 @@ const Signup = () => {
             'Content-Type': 'application/json'
         }
         // Requête POST : inscription de l'user
-        axios.post("http://localhost:3000/api/auth/signup", user, { headers })
-            .then(() => axios.post("http://localhost:3000/api/auth/login", { email: user.email, password: user.password }, { headers })
+        axios.post(`${process.env.REACT_APP_API_URL}/api/auth/signup`, user, { headers })
+            .then(() => axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, { email: user.email, password: user.password }, { headers })
                 .then((res) => {
                     // stocke le token dans le localStorage, il faut le mettre dans le header Authorization pour chaque requête de l'user
                     localStorage.jwt = res.data.jwt;

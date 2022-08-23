@@ -56,7 +56,7 @@ const Login = () => {
             'Content-Type': 'application/json'
         }
         // Requête POST : authentification de l'user
-        axios.post("http://localhost:3000/api/auth/login", user, { headers })
+        axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, user, { headers })
             .then((res) => {
                 // stocke le token dans le localStorage, il faut le mettre dans le header Authorization pour chaque requête de l'user
                 localStorage.jwt = res.data.jwt;
@@ -65,7 +65,7 @@ const Login = () => {
                 window.location = '/'; // retour page d'accueil après login
             })
             .catch((error) => {
-                if (error.response.status !== 500) {
+                if (error.response.status === 401) {
                     document.querySelector('.input-error').textContent = 'Email ou mot de passe invalide';
                 } else {
                     console.log(error);
