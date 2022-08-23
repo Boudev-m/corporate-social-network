@@ -5,6 +5,9 @@ const app = express();
 // Json
 app.use(express.json());
 
+// Importe dotenv
+require('dotenv').config({ path: './.env' });
+
 // CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -20,8 +23,6 @@ app.use((req, res, next) => {
 // // (pourtant c'est la même origin = http://localhost:3000 ?)
 // // En mettant 'same-site' ou 'cross-origin', les images s'affichent.
 
-// Importe dotenv
-require('dotenv').config({ path: './.env' });
 
 // // Mongoose
 const mongoose = require('mongoose');
