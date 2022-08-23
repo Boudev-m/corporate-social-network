@@ -1,7 +1,7 @@
 /******************  GENERAL **********************/
 
 :root {
-  font-family: Lato, Verdana, Tahoma, sans-serif;
+  font-family: 'Lato', Verdana, sans-serif;
   background: #DDD;
   height: 100%;
 }
@@ -99,12 +99,20 @@ main {
   max-width: 400px;
 }
 
-.like_post {
+.option_post {
   padding-top: 5px;
   border-top: 2px solid #CCC;
   display: flex;
   justify-content: space-between;
   font-style: italic;
+}
+
+.like_post {
+  display: flex;
+}
+
+.liked {
+  color: red;
 }
 
 .ownper_post {
