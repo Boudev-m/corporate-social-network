@@ -12,6 +12,7 @@ import Newpost from './pages/Newpost';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Error from './pages/Error';
+import Updatepost from './pages/Updatepost';
 
 // Crée le composant/la fonction App
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new-post" element={<Newpost />} />
+        <Route path="/post" element={<Updatepost />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<Error />} />
