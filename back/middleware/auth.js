@@ -1,8 +1,6 @@
 // Gestionnaire de Token
 const jwt = require('jsonwebtoken');
 
-// Importe dotenv
-require('dotenv').config({ path: '../.env' });
 
 // Vérifie l'authentification utilisateur, pour lui donner l'accès d'afficher, créer, modifier ou supprimer des sauces
 module.exports = (req, res, next) => {
