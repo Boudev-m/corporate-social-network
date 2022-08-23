@@ -31,7 +31,7 @@ const Header = () => {
                             <li>Nouveau message</li>
                         </NavLink>
                         <NavLink to="" >
-                            <li onClick={logout}>Se déconnecter</li>
+                            <li onClick={() => { if (window.confirm('Vous allez être déconnecté.')) logout() }}>Se déconnecter</li>
                         </NavLink>
                     </ul> :
                     <ul>
