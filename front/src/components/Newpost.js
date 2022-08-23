@@ -21,6 +21,9 @@ const Newpost = () => {
         const post = {              // contenu du post
             text: document.getElementById('message').value,
         }
+        if (!file && !post.text) {
+            return alert('Veuillez saisir un texte et/ou charger une image.');
+        }
         // Crée la constante qui sera envoyé dans la requête
         const formData = new FormData();
         // Ajoute le message et l'image
