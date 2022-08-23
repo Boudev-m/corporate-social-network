@@ -25,15 +25,25 @@ li {
   font-size: 0.8em;
 }
 
+button {
+  padding: 5px;
+  margin: 0px 5px;
+  border-radius: 5px;
+  background-color: rgb(255, 205, 205);
+}
+
+
+
 /******************  HEADER **********************/
 header {
   background-color: #FFF;
   padding: 10px;
-  border: 1px solid #888;
+  border-bottom: 5px solid #FD2D01;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+
 }
 
 /*container logo*/
@@ -53,24 +63,37 @@ header {
 }
 
 /*Nav*/
-ul {
+.navigation ul {
   display: flex;
 }
 
-li {
-  padding: 10px;
+.navigation a {
+  font-weight: bold;
+  color: #4E5166;
+  text-decoration: none;
 }
+
+.navigation a:hover {
+  color: #000;
+}
+
+.navigation li {
+  padding: 5px 0px;
+  margin: 0px 10px;
+}
+
 
 /******************  MAIN **********************/
 
 main {
   /* border: 2px solid blue; */
-  padding: 30px 20%;
+  padding: 30px 15%;
 }
 
 .main_content {
   padding: 10px;
-  border: 1px solid #888;
+  border: 1px solid #4E5166;
+  box-shadow: 1px 1px 5px #BBB, -1px -1px 5px #BBB;
   background-color: #FFF;
   margin-bottom: 15px;
 }
@@ -78,7 +101,7 @@ main {
 /******************  HOME **********************/
 
 .name_date_post {
-  border-bottom: 2px solid #CCC;
+  border-bottom: 1px solid #4e516680;
   padding-bottom: 5px;
   display: flex;
   justify-content: space-between;
@@ -97,11 +120,13 @@ main {
 
 .image_post img {
   max-width: 400px;
+  width: auto;
 }
 
 .option_post {
+  /* background-color: #4E5166; */
   padding-top: 5px;
-  border-top: 2px solid #CCC;
+  border-top: 1px solid #4e516680;
   display: flex;
   justify-content: space-between;
   font-style: italic;
@@ -109,10 +134,11 @@ main {
 
 .like_post {
   display: flex;
+  align-items: center;
 }
 
 .liked {
-  color: red;
+  opacity: 0.5;
 }
 
 .ownper_post {
@@ -139,8 +165,12 @@ main {
     height: 60px;
   }
 
+  .navigation ul {
+    margin-bottom: 5px;
+  }
+
   main {
-    padding: 30px 120px;
+    padding: 30px 10%;
   }
 
 }
@@ -157,6 +187,13 @@ main {
     margin-bottom: 0px;
   }
 
+  .image_post {
+    display: flex;
+  }
+
+  .image_post img {
+    margin: auto;
+  }
 }
 
 /* 
