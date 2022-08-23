@@ -16,13 +16,9 @@ app.use((req, res, next) => {
     next();
 });
 
-// // Helmet
-// const helmet = require('helmet');
-// app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));       
-// // Remarque : en mettant 'same-origin' les images ne chargent pas car bloquées par le header CORP.
-// // (pourtant c'est la même origin = http://localhost:3000 ?)
-// // En mettant 'same-site' ou 'cross-origin', les images s'affichent.
-
+// Helmet
+const helmet = require('helmet');
+app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));
 
 // // Mongoose
 const mongoose = require('mongoose');
