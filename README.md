@@ -28,7 +28,7 @@ Lien de téléchargement : https://nodejs.org/en/ (version LTS)
 ### EXECUTION
 
 - Cloner le dépot avec la commande `git clone https://github.com/BouiMust/OpenclassP7.git`
-- Mettre les 2 fichiers ``.env`` (fournis par le propriétaire du github) dans le dépôt, l'un à la racine du dossier front et l'autre back
+- Mettre les 2 fichiers ``.env`` (fournis par le propriétaire du github) dans le dépôt, l'un à la racine du dossier front et l'autre à la racine du dossier back
 - Dans le dossier back, taper la commande ``npm install``pour installer les dépendances dont a besoin le backend, puis la commande ``node server`` pour executer le backend/serveur (il doit s'executer sur le port 3000, à l'adresse http://localhost:3000, c'est important)
 - Dans le dossier front, ouvrir un terminal et lancer la commande `npm install`<!--pour installer les dépendances dont a besoin le frontend-->, puis `npm start` pour executer le frontend/React (le port 3000 étant déjà pris par le serveur, il se lancera sur le port 3001 si celui-ci est disponible, l'application sera visible à l'adresse http://localhost:3001)
 
@@ -46,7 +46,7 @@ Le paquet npm ``dotenv`` permet à l'application d'exploiter ces fichiers dans l
 
 _____________________________
 
-### DEPENDANCES LIEES A L'APPLICATION
+### DEPENDANCES LIÉES A L'APPLICATION
 
 
 ##### EXPRESS.js 
@@ -91,19 +91,19 @@ _________________________________
 L'application utilise MongoDB Atlas, une plateforme/service en ligne, pour la sauvegarde des données.  
 MongoDB est un système de base de données pour les serveurs Node.
 
-2 collections sont stockées dans la base de données : Users et Posts.
-Users contient la liste de tous les utilisateurs. Chaque utilisateur possède un nom, un prénom, un email, etc...
+2 collections sont stockées dans la base de données : Users et Posts.  
+Users contient la liste de tous les utilisateurs. Chaque utilisateur possède un nom, un prénom, un email, etc...  
 Posts contient la liste de tous les posts. Chaque post possède un texte et/ou une image, une date de création, son auteur, etc...
 
 _________________________________
 
 ### REQUETES HTTP
 
-Les requêtes sont les demandes que le client (l'utilisateur) fait au serveur.
-On utilise le protocole HTTP pour pouvoir communiquer entre les deux.
-Le client envoie une ``'request'`` au serveur, celui-ci intercepte la ``'request'`` et lui retourne une ``'response'`` avec un code HTTP (et des données, selon le verbe HTTP utilisé)
-A travers ces requêtes, l'utilisateur peut récupérer, créer, modifier ou supprimer une ressource.
-Voici les verbes (ou actions) HTTP implémentés dans l'application : GET, POST, PUT, DELETE
+Les requêtes sont les demandes que le client (l'utilisateur) fait au serveur.  
+On utilise le protocole HTTP pour pouvoir communiquer entre les deux.  
+Le client envoie une ``'request'`` au serveur, celui-ci intercepte la ``'request'`` et lui retourne une ``'response'`` avec un code HTTP (et des données, selon le verbe HTTP utilisé)  
+A travers ces requêtes, l'utilisateur peut récupérer, créer, modifier ou supprimer une ressource.  
+Voici les verbes (ou actions) HTTP implémentés dans l'application : GET, POST, PUT, DELETE  
 
 _________________________________
 
@@ -122,10 +122,10 @@ _________________________________
 
 #### Voici le nom de domaine du serveur : http://localhost:3000
 
-#### Voici les URI pour chaque route :
+#### Voici les URI/endpoints pour chaque route :
 
 Inscription de l'utilisateur :  
-/api/auth/signup
+``/api/auth/signup``
 
 Athentification de l'utilisateur :  
 /api/auth/login
@@ -146,5 +146,5 @@ Ajouter ou retirer un like :
 /api/posts/:id/like
 
 
-Exemple : pour modifier un post, l'URL complet est : http://localhost:3000/api/posts/:id
+Exemple : pour modifier un post, l'URL complet est : http://localhost:3000/api/posts/:id  
 :id = paramètre URL qui correspond à l'identifiant unique du post.
