@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 
 
-// Vérifie l'authentification utilisateur, pour lui donner l'accès d'afficher, créer, modifier ou supprimer des sauces
+// Vérifie l'authentification utilisateur, pour lui donner l'accès d'afficher, créer, modifier ou supprimer des posts
 module.exports = (req, res, next) => {
     console.log('-------------- AUTH --------------');
     console.log('Vérification du token...');
@@ -14,8 +14,6 @@ module.exports = (req, res, next) => {
             userId: userId
         };
         console.log('Token valide.');
-        console.log('userId du token:');
-        console.log(req.auth.userId);
         next();
     } catch (error) {
         console.log('Token non valide.');

@@ -1,10 +1,9 @@
-// Modèle mongoose
+// Modèles mongoose
 const Post = require('../models/post');
 const User = require('../models/user');
 
 // Affiche tous les posts de la BDD
 exports.getAllPost = (req, res, next) => {
-    console.log('-------------- GET ALL POSTS --------------');
     Post.find()
         .then(posts => {
             for (let i in posts) {
@@ -26,11 +25,6 @@ exports.getAllPost = (req, res, next) => {
 
 // Enregistre un post dans la BDD
 exports.createPost = (req, res, next) => {
-    console.log('-------------- CREATE A POST --------------');
-    console.log('Contenu du post');
-    console.log(req.body);
-    console.log(req.file);
-    console.log(req.auth);
     const postObject = req.body;
     delete postObject._id;
     delete postObject.userId;
@@ -61,8 +55,6 @@ exports.createPost = (req, res, next) => {
         .then((post) => {
             post.save()
                 .then((post) => {
-                    console.log('post crée');
-                    console.log(post);
                     res.status(201).json({ message: 'Post crée', post })
                 })
                 .catch(error => res.status(500).json({ error }));
@@ -73,10 +65,6 @@ exports.createPost = (req, res, next) => {
 
 // Modifie un post de la BDD
 exports.updatePost = (req, res, next) => {
-    console.log('-------------- UPDATE A POST --------------');
-    console.log('id du post dans les params url : ' + req.params.id);
-    console.log('Contenu du post :');
-    console.log(req.body.text, req.file);
     const postObject = {
         text: req.body.text,
         imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : ''
@@ -99,14 +87,10 @@ exports.updatePost = (req, res, next) => {
 };
 
 
-// Like un post
+// Like un post dans la BDD
 exports.likePost = (req, res, next) => {
-    console.log('-------------- LIKE A POST --------------');
-    console.log('id du post dans les params url : ' + req.params.id);
-    console.log('userId token : ' + req.auth.userId);
     Post.findOne({ _id: req.params.id })
         .then((post) => {
-            console.log(post);
             let updateLike = -1;
             const likeObject = {
                 likes: post.likes,
@@ -133,13 +117,10 @@ const fs = require('fs');
 
 // Supprime un post de la BDD
 exports.deletePost = (req, res, next) => {
-    console.log('-------------- DELETE A POST --------------');
-    console.log('id du post dans les params url : ' + req.params.id);
     Post.findOne({ _id: req.params.id })
         .then((post) => {
             User.findOne({ _id: req.auth.userId })
                 .then(user => {
-                    console.log(user);
                     if (post.userId === req.auth.userId || user.isAdmin) {
                         const filename = post.imageUrl.split('/images/')[1];
                         fs.unlink(`images/${filename}`, () => {
