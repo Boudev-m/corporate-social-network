@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 
 const UpdatePost = () => {
+
     // si user non authentifié, renvoie à la page login
     if (!localStorage.jwt) {
         window.location = './login'
@@ -28,7 +29,8 @@ const UpdatePost = () => {
     // Envoie le formulaire
     function SendForm(e) {
 
-        e.preventDefault();         // enleve le comportement du bouton 'submit' dans les formulaires
+        // annule le comportement du bouton 'submit' dans les formulaires
+        e.preventDefault();
 
         // récupère le texte saisie
         const post = {
@@ -42,6 +44,7 @@ const UpdatePost = () => {
 
         // Crée la constante qui sera envoyé dans la requête
         const formData = new FormData();
+
         // Ajoute le message et l'image
         formData.append('text', post.text);
         if (file) {
@@ -55,10 +58,18 @@ const UpdatePost = () => {
             'Authorization': `Bearer ${localStorage.jwt}`
         }
 
-        // Requête PUT : envoie un post avec texte et/ou image
+        // Requête PUT : modifie le post avec texte et/ou image
         axios.put(`${process.env.REACT_APP_API_URL}/api/posts/${idFromUrl}`, formData, { headers })
             .then(() => window.location = '/')
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                // si token invalide
+                if (error.response.status === 401) {
+                    localStorage.removeItem('jwt');
+                    window.location = './login';
+                } else {
+                    console.log(error);
+                }
+            });
     }
     return (
         <main>

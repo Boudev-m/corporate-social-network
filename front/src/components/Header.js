@@ -4,13 +4,13 @@ import logo from '../images/icon-left-font.png';
 
 const Header = () => {
 
-    // vérifie la connexion
+    // vérifie la connexion de l'user
     let isLogged = false;
     if (localStorage.jwt) {
         isLogged = true;
     }
 
-    // Déconnexion
+    // Déconnecte l'user
     function logout() {
         localStorage.removeItem('jwt');
         window.location = '/login';

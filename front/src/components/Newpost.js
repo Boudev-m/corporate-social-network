@@ -4,18 +4,20 @@ import { useState } from 'react';
 
 
 const Newpost = () => {
-    // si non authentifié, renvoyer une erreur 'Vous devez vous authentifier pour publier un message.'
 
+    // si user non authentifié, renvoie à la page login
     if (!localStorage.jwt) {
         window.location = './login'
     }
 
     const [file, setFile] = useState();
 
+    // récupère l'image entrante
     function uploadFile(e) {
         return setFile(e.target.files[0]);
     };
 
+    // redirige à la page d'accueil
     function goHome(e) {
         e.preventDefault();
         window.location = './'
@@ -23,32 +25,48 @@ const Newpost = () => {
 
     // Envoie le formulaire
     function SendForm(e) {
-        // si champ texte et image vide, renvoyer une erreur
-        // si image, envoyer en form-data
-        e.preventDefault();         // enleve le comportement du bouton 'submit' dans les formulaires
-        const post = {              // contenu du post
+
+        // enleve le comportement du bouton 'submit' dans les formulaires
+        e.preventDefault();
+
+        // récupère le texte saisie
+        const post = {
             text: document.getElementById('message').value,
         }
+
+        // si champ texte et image vide
         if (!file && !post.text) {
             return alert('Veuillez saisir un texte et/ou charger une image.');
         }
+
         // Crée la constante qui sera envoyé dans la requête
         const formData = new FormData();
+
         // Ajoute le message et l'image
         formData.append('text', post.text);
         if (file) {
             formData.append('imageFile', file, file.fieldname);
         }
+
         // Headers de requête
         const headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.jwt}`
         }
-        // Requête POST : envoyer un post avec texte et/ou image
-        axios.post(`${process.env.REACT_APP_API_URL}/api/posts`, formData, { headers })  // mettre l'URL dans une var env
-            .then(() => window.location = '/') // retour page d'accueil après login
-            .catch((error) => console.log(error));
+
+        // Requête POST : crée un post avec texte et/ou image
+        axios.post(`${process.env.REACT_APP_API_URL}/api/posts`, formData, { headers })
+            .then(() => window.location = '/')
+            .catch((error) => {
+                // si token invalide
+                if (error.response.status === 401) {
+                    localStorage.removeItem('jwt');
+                    window.location = './login';
+                } else {
+                    console.log(error);
+                }
+            });
     }
     return (
         <main>

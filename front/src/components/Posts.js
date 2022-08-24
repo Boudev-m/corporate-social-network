@@ -2,35 +2,43 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Posts = () => {
+    // En-tête de requête qui contiendra le token
     const headers = { 'Authorization': `Bearer ${localStorage.jwt}` }
-    // Requête GET  : affiche la collection des posts
+
     const [data, setData] = useState([]);
     const [isAdmin, setIsAdmin] = useState([]);
+
     useEffect(() => {
         const headers = { 'Authorization': `Bearer ${localStorage.jwt}` }
+        // Requête GET : affiche la collection des posts
         axios.get(`${process.env.REACT_APP_API_URL}/api/posts`, { headers })
             .then((res) => {
-                setData(res.data.posts.reverse());        // reverse pour trier par date de création
+                setData(res.data.posts.reverse());  // reverse pour trier par date de création
                 setIsAdmin(res.data.isAdmin);
             })
-            .catch(() => {
-                localStorage.removeItem('jwt');
-                window.location = './login'
+            .catch((error) => {
+                // si token invalide
+                if (error.response.status === 401) {
+                    localStorage.removeItem('jwt');
+                    window.location = './login';
+                } else {
+                    console.log(error);
+                }
             });
     }, []) // le [] est pour une callback
 
-    // modifier un post
+    // Modifie un post
     function updatePost(e) {
         const post = e.target.closest('div .main_content');
         const idPost = post.getAttribute('id');
         window.location = `./post?id=${idPost}`
     }
 
-    // Requête POST : ajouter/enlever un like
+    // Requête POST : ajoute/retire un like
     function likePost(e) {
         const post = e.target.closest('div .main_content');
         const idPost = post.getAttribute('id')
-        axios.post(`${process.env.REACT_APP_API_URL}/api/posts/${idPost}/like`, '', { headers })  // mettre l'URL dans une var env
+        axios.post(`${process.env.REACT_APP_API_URL}/api/posts/${idPost}/like`, '', { headers })
             .then((res) => {
                 const totalLikes = parseInt(post.querySelector('.like').textContent) + res.data;
                 post.querySelector('.like').textContent = totalLikes;
@@ -43,17 +51,24 @@ const Posts = () => {
             .catch((error) => console.log(error));
     }
 
-    // Requête DELETE : supprimer un post
+    // Requête DELETE : supprime un post
     function deletePost(e) {
         const post = e.target.closest('div .main_content');
-        const idPost = post.getAttribute('id')
+        const idPost = post.getAttribute('id');
         console.log(idPost);
-        axios.delete(`${process.env.REACT_APP_API_URL}/api/posts/${idPost}`, { headers })  // mettre l'URL dans une var env
+        axios.delete(`${process.env.REACT_APP_API_URL}/api/posts/${idPost}`, { headers })
             .then(() => post.remove())
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                // si token invalide
+                if (error.response.status === 401) {
+                    localStorage.removeItem('jwt');
+                    window.location = './login';
+                } else {
+                    console.log(error);
+                }
+            });
     }
 
-    // si user non authentifié, afficher 'connectez vous pour voir les messages'
     return (
         <main>
             {data.map((post) => (          // parcourt chaque elt du tableau
