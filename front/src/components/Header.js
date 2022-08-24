@@ -24,23 +24,23 @@ const Header = () => {
             <div className='navigation'>
                 {isLogged ?
                     <ul>
-                        <NavLink to="/" >
-                            <li>Accueil</li>
-                        </NavLink>
-                        <NavLink to="/new-post" >
-                            <li>Nouveau message</li>
-                        </NavLink>
-                        <NavLink to="" >
-                            <li onClick={() => { if (window.confirm('Vous allez être déconnecté.')) logout() }}>Se déconnecter</li>
-                        </NavLink>
+                        <li>
+                            <NavLink to="/" >Accueil</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/new-post" >Nouveau message</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="" onClick={() => { if (window.confirm('Vous allez être déconnecté.')) logout() }}>Se déconnecter</NavLink>
+                        </li>
                     </ul> :
                     <ul>
-                        <NavLink to="/login" >
-                            <li>Se connecter</li>
-                        </NavLink>
-                        <NavLink to="/signup" >
-                            <li>S'inscrire</li>
-                        </NavLink>
+                        <li>
+                            <NavLink to="/login" >Se connecter</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/signup" >S'inscrire</NavLink>
+                        </li>
                     </ul>
                 }
             </div>
