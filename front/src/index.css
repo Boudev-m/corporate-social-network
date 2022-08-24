@@ -155,6 +155,7 @@ main {
 .container_new_post form {
   max-width: 600px;
   margin: auto;
+  padding: 10px 0px;
 }
 
 .container_text_area {
