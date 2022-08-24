@@ -6,6 +6,9 @@ import { useState } from 'react';
 const Newpost = () => {
     // si non authentifié, renvoyer une erreur 'Vous devez vous authentifier pour publier un message.'
 
+    if (!localStorage.jwt) {
+        window.location = './login'
+    }
 
     const [file, setFile] = useState();
 
@@ -49,23 +52,17 @@ const Newpost = () => {
     }
     return (
         <main>
-            <div className='main_content center container_textarea'>
-                <form>
-                    <div>
+            <div className='main_content center container_new_post'>
+                <form className='form'>
+                    <div className='container_text_area'>
                         <label htmlFor="message">Votre message</label>
-                        <br /><br />
                         <textarea className="message" name="message" id="message" cols="40" rows="5"></textarea>
                     </div>
-                    <br />
-                    <div>
+                    <div className='container_file_upload'>
                         <div>Ajouter une image</div>
-                        <br />
                         <input name="file" id='imageFile' type="file" accept=".jpg, .jpeg, .png" onChange={uploadFile} />
                     </div>
-                    <br />
                     <div>
-                        {/* <input type="submit" value="Envoyer" /> */}
-                        {/* Event click */}
                         <button onClick={goHome}>Retour</button>
                         <button onClick={SendForm}>Envoyer</button>
                     </div>

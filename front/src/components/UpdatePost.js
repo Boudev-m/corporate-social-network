@@ -4,18 +4,22 @@ import { useState } from 'react';
 
 
 const UpdatePost = () => {
-    // si non authentifié, renvoyer une erreur 'Vous devez vous authentifier pour publier un message.'
+    // si user non authentifié, renvoie à la page login
+    if (!localStorage.jwt) {
+        window.location = './login'
+    }
 
+    // récupère l'id du post dans l'url
     const url = new URL(document.location.href);
     const idFromUrl = url.searchParams.get("id");
-    console.log(idFromUrl);
 
+    // récupère l'image entrante
     const [file, setFile] = useState();
-
     function uploadFile(e) {
         return setFile(e.target.files[0]);
     };
 
+    // redirige à la page d'accueil
     function goHome(e) {
         e.preventDefault();
         window.location = './'
@@ -23,15 +27,19 @@ const UpdatePost = () => {
 
     // Envoie le formulaire
     function SendForm(e) {
-        // si champ texte et image vide, renvoyer une erreur
-        // si image, envoyer en form-data
+
         e.preventDefault();         // enleve le comportement du bouton 'submit' dans les formulaires
-        const post = {              // contenu du post
+
+        // récupère le texte saisie
+        const post = {
             text: document.getElementById('message').value,
         }
+
+        // si champ texte et image vide
         if (!file && !post.text) {
             return alert('Veuillez saisir un texte et/ou charger une image.');
         }
+
         // Crée la constante qui sera envoyé dans la requête
         const formData = new FormData();
         // Ajoute le message et l'image
@@ -39,36 +47,32 @@ const UpdatePost = () => {
         if (file) {
             formData.append('imageFile', file, file.fieldname);
         }
+
         // Headers de requête
         const headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.jwt}`
         }
-        // Requête POST : envoyer un post avec texte et/ou image
-        axios.put(`${process.env.REACT_APP_API_URL}/api/posts/${idFromUrl}`, formData, { headers })  // mettre l'URL dans une var env
+
+        // Requête PUT : envoie un post avec texte et/ou image
+        axios.put(`${process.env.REACT_APP_API_URL}/api/posts/${idFromUrl}`, formData, { headers })
             .then(() => window.location = '/')
             .catch((error) => console.log(error));
     }
     return (
         <main>
-            <div className='main_content center container_textarea'>
-                <form>
-                    <div>
+            <div className='main_content center container_new_post'>
+                <form className='form'>
+                    <div className='container_text_area'>
                         <label htmlFor="message">Votre message</label>
-                        <br /><br />
                         <textarea className="message" name="message" id="message" cols="40" rows="5"></textarea>
                     </div>
-                    <br />
-                    <div>
+                    <div className='container_file_upload'>
                         <div>Ajouter une image</div>
-                        <br />
                         <input name="file" id='imageFile' type="file" accept=".jpg, .jpeg, .png" onChange={uploadFile} />
                     </div>
-                    <br />
                     <div>
-                        {/* <input type="submit" value="Envoyer" /> */}
-                        {/* Event click */}
                         <button onClick={goHome}>Retour</button>
                         <button onClick={SendForm}>Envoyer</button>
                     </div>
