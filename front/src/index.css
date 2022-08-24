@@ -145,10 +145,26 @@ main {
   background-color: #fef3e7;
 }
 
-/******************  NEWPOST **********************/
+/******************  NEWPOST, UPDATEPOST **********************/
 
-.container_textarea {
+.container_new_post {
+  border-bottom: 5px solid #FD2D01;
   overflow: hidden;
+}
+
+.container_new_post form {
+  max-width: 600px;
+  margin: auto;
+}
+
+.container_text_area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container_file_upload {
+  padding: 20px 0;
 }
 
 /************** Media Queries ***************/
