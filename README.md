@@ -101,7 +101,8 @@ _________________________________
 
 Les requêtes sont les demandes que le client (l'utilisateur) fait au serveur.  
 On utilise le protocole HTTP pour pouvoir communiquer entre les deux.  
-Le client envoie une ``'request'`` au serveur, celui-ci intercepte la ``'request'`` et lui retourne une ``'response'`` avec un code HTTP (et des données, selon le verbe HTTP utilisé)  
+Le client envoie une ``'request'`` au serveur, celui-ci intercepte la ``'request'`` et lui retourne une ``'response'`` avec un code HTTP (et des données, selon le verbe HTTP utilisé).  
+  
 A travers ces requêtes, l'utilisateur peut récupérer, créer, modifier ou supprimer une ressource.  
 Voici les verbes (ou actions) HTTP implémentés dans l'application : GET, POST, PUT, DELETE  
 
@@ -109,16 +110,16 @@ _________________________________
 
 ### CODES HTTP
 
-Voici les codes d'état retournés par l'application suite aux requêtes HTTP :
+Voici les codes d'état retournés par le serveur suite aux requêtes HTTP :
 - 200 : OK, la ressource est disponible
 - 201 : OK, création ou modification d'une ressource
 - 401 : Non authentifié, l'authentification est requise pour exploiter la ressource
 - 403 : Accès refusé, l'utilisateur n'a pas les droits d'exploiter la ressource
-- 500 : Erreur interne, erreur provenant de l'application
+- 500 : Erreur interne, erreur provenant du serveur
 
 _________________________________
 
-### ENDPOINTS DES ROUTES
+### ENDPOINTS DES ROUTES DE l'API
 
 #### Voici le nom de domaine du serveur : http://localhost:3000
 
@@ -128,23 +129,23 @@ Inscription de l'utilisateur :
 ``/api/auth/signup``
 
 Athentification de l'utilisateur :  
-/api/auth/login
+``/api/auth/login``
 
 Afficher la collection des posts :  
-/api/posts
+``/api/posts``
 
 Créer un post :  
-/api/posts
+``/api/posts``
 
 Modifier un post :  
-/api/posts/:id
+``/api/posts/:id``
 
 Supprimer un post :  
-/api/posts/:id
+``/api/posts/:id``
 
 Ajouter ou retirer un like :  
-/api/posts/:id/like
+``/api/posts/:id/like``
 
 
-Exemple : pour modifier un post, l'URL complet est : http://localhost:3000/api/posts/:id  
+Exemple : pour modifier un post, l'URL complet de la route est : http://localhost:3000/api/posts/:id  
 :id = paramètre URL qui correspond à l'identifiant unique du post.
