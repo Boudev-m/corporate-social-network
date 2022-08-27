@@ -16,8 +16,8 @@ Travaux effectués côté front :
 - créer une application responsive
 
 Travaux effectués côté back :
-- mettre en place le serveur et implémenter l'API avec Express
-- créer une base de données qui sauvegarde les données de l'API avec MongoDB
+- mettre en place le serveur et implémenter l'API
+- créer une base de données qui sauvegarde les données de l'API
 - gérer les rôles pour la lecture, l'écriture, la modification et la suppression des données (CRUD)
 - sécuriser l'API
 
