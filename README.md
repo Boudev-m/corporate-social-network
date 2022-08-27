@@ -51,13 +51,13 @@ Notes :
   
 Il est possible d'utiliser cette application sans les variables d'environnement.  
 Il suffit de remplacer ces variables par leur valeur respective directement dans le code.  
-Ces variables sont écris sous cette forme : ``process.env.nomdelavariable``  
+Ces variables sont écrites sous cette forme : ``process.env.nomdelavariable``  
   
 Voici les noms de variable utilisés :  
-``PORT`` représente le numéro du port sur lequel tourne le serveur.
-``MONGODB_URL`` est l'adresse d'accès à la base de données MongoDB.
-``PRIVATE_KEY`` est la clé secrète (généralement une longue chaine de caract.) qui sert à créer le token d'authentification et à le décrypter.
-``REACT_APP_API_URL`` correspond à l'adresse du serveur.
+``PORT`` : représente le numéro du port sur lequel tourne le serveur.  
+``MONGODB_URL`` : c'est l'adresse d'accès à la base de données MongoDB (vous pouvez en créer une sur https://www.mongodb.com/fr-fr/atlas/database)  
+``PRIVATE_KEY`` : c'est la clé secrète (généralement une longue chaine de caract.) qui sert à créer le token d'authentification et à le décrypter.  
+``REACT_APP_API_URL`` : correspond à l'adresse du serveur.  
 _____________________________
 
 ### DEPENDANCES LIÉES A L'APPLICATION
