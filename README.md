@@ -4,8 +4,7 @@ _________________________________
 
 ### OBJECTIF DU PROJET  
 
-Créer une application de réseau social interne pour l'entreprise Groupomania.  
-Cette application a pour but de faciliter la communication entre les employés de l'entreprise.
+Créer une application de réseau social interne pour les employés d'IBM, afin de faciliter la communication entre eux.
 
 Technologies utilisées : React, Node, Express et MongoDB.
 
