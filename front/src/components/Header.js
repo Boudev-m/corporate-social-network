@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from '../images/icon-left-font.png';
+import logo from '../images/ibm-logo.svg';
 
 const Header = () => {
 
@@ -19,7 +19,7 @@ const Header = () => {
     return (
         <header>
             <div className='container_logo'>
-                <img className='logo' src={logo} alt="logo groupomania" />
+                <img className='logo' src={logo} alt="logo de IBM" />
             </div>
             <div className='navigation'>
                 {isLogged ?
