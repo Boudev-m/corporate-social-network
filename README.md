@@ -1,4 +1,4 @@
-## PROJET 7 : Créer une application de réseau social d’entreprise 
+## Application de réseau social d’entreprise 
 
 _________________________________
 
