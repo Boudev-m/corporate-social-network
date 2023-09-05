@@ -237,9 +237,3 @@ Pour chaque post, on pourrait imaginer un bouton commentaire (à côté du bouto
 - Le côté responsiv a besoin d'être optimiser, on pourrait par exemple ajouter un toggle de navigation pour la version mobile
 
 - Le code de l'application est commenté en français et devrait être commenté en anglais, afin de faciliter la compréhension pour les developpeurs non francophones qui souhaitent reprendre le projet.
-
-_________________________________
-
-#### APERÇU
-   
-<img src="https://i.ibb.co/7pCmQDb/IBM-social-network.jpg" width="500px">
