@@ -22,6 +22,7 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));
 
 // // Mongoose
 const mongoose = require('mongoose');
+mongoose.set('strictQuery', true);
 mongoose.connect(process.env.MONGODB_URL,
     {
         useNewUrlParser: true,
@@ -35,6 +36,7 @@ mongoose.connect(process.env.MONGODB_URL,
 
 // Accède au chemin du serveur (pour les fichiers images stockées)
 const path = require('path');
+
 // Gère la ressource image de manière statique à chaque fois qu'elle reçoit une requête vers la route /images
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

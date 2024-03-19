@@ -18,31 +18,33 @@ const Header = () => {
 
     return (
         <header>
-            <div className='container_logo'>
-                <img className='logo' src={logo} alt="logo de IBM" />
-            </div>
-            <div className='navigation'>
-                {isLogged ?
-                    <ul>
-                        <li>
-                            <NavLink to="/" >Accueil</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/new-post" >Nouveau message</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="" onClick={() => { if (window.confirm('Vous allez être déconnecté.')) logout() }}>Se déconnecter</NavLink>
-                        </li>
-                    </ul> :
-                    <ul>
-                        <li>
-                            <NavLink to="/login" >Se connecter</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/signup" >S'inscrire</NavLink>
-                        </li>
-                    </ul>
-                }
+            <div className="container_header">
+                <div className='container_logo'>
+                    <img className='logo' src={logo} alt="logo de IBM" />
+                </div>
+                <div className='navigation'>
+                    {isLogged ?
+                        <ul>
+                            <li>
+                                <NavLink to="/" >Accueil</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/new-post" >Nouveau message</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="" onClick={() => { if (window.confirm('Vous allez être déconnecté.')) logout() }}>Se déconnecter</NavLink>
+                            </li>
+                        </ul> :
+                        <ul>
+                            <li>
+                                <NavLink to="/login" >Se connecter</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/signup" >S'inscrire</NavLink>
+                            </li>
+                        </ul>
+                    }
+                </div>
             </div>
         </header>
     );

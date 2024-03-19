@@ -43,7 +43,12 @@ header {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+}
 
+.container_header {
+  max-width: 1000px;
 }
 
 /*container logo*/
@@ -88,7 +93,7 @@ header {
 
 main {
   /* border: 2px solid blue; */
-  padding: 30px 15%;
+  padding: 15px 0;
 }
 
 .main_content {
@@ -144,7 +149,7 @@ main {
 }
 
 .ownper_post {
-  background-color: #fef3e7;
+  background-color: #e0effc;
 }
 
 /******************  NEWPOST, UPDATEPOST **********************/

@@ -7,6 +7,9 @@ const Posts = () => {
 
     const [data, setData] = useState([]);
     const [isAdmin, setIsAdmin] = useState([]);
+    const postStyles = {
+        whiteSpace: "pre-line",
+    };
 
     useEffect(() => {
         const headers = { 'Authorization': `Bearer ${localStorage.jwt}` }
@@ -78,7 +81,7 @@ const Posts = () => {
                         <p>Posté le {post.date[0]} à {post.date[1]}</p>
                     </div>
                     <div className='message_post'>
-                        <p className='text_post'>{post.text}</p>
+                        <p className='text_post' style={postStyles}>{post.text}</p>
                         {post.imageUrl ?
                             <div className='image_post'>
                                 <img src={post.imageUrl} alt={post.imageUrl ? "[Illustration du message]" : ""} />
