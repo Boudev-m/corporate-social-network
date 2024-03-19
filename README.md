@@ -28,7 +28,7 @@ Pour lancer cette application web, il faut installer NodeJS et son gestionnaire 
 Lien de téléchargement : https://nodejs.org/en/ (version LTS)
   
   
-- Cloner le dépot avec la commande `git clone https://github.com/BouiMust/OpenclassP7.git`
+- Cloner le dépot avec la commande `git clone https://github.com/Boudev-m/corporate-social-network.git`
 - Mettre les 2 fichiers ``.env`` (fournis par le propriétaire du github) dans le dépôt, l'un à la racine du dossier front et l'autre à la racine du dossier back
 - Dans le dossier back, taper la commande ``npm install``pour installer les dépendances dont a besoin le backend, puis la commande ``node server`` pour executer le backend/serveur (il doit s'executer sur le port 3000, à l'adresse http://localhost:3000, c'est important).  
 Le message ``'Listening on port 3000, Connexion à MongoDB réussie'`` devrait apparaitre.
